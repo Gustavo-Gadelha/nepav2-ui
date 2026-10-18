@@ -26,3 +26,16 @@ export async function registerAccount(
   }
   return { ok: true };
 }
+
+/** O código "123456" é válido; qualquer outro é recusado. */
+export async function verifyCode(code: string): Promise<AuthResult> {
+  await delay();
+  if (code !== "123456") {
+    return { ok: false, message: "Código inválido ou expirado." };
+  }
+  return { ok: true };
+}
+
+export async function resendCode(): Promise<void> {
+  await delay(600);
+}

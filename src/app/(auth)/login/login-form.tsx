@@ -36,7 +36,7 @@ export function LoginForm() {
       setFormError(result.message);
       return;
     }
-    router.push("/mfa");
+    router.push(`/mfa?email=${encodeURIComponent(values.email)}`);
   }
 
   return (

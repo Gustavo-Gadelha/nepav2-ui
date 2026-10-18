@@ -10,3 +10,10 @@ export function formatPhone(value: string) {
   }
   return `(${digits.slice(0, 2)}) ${digits.slice(2, 3)} ${digits.slice(3, 7)}-${digits.slice(7)}`;
 }
+
+/** Oculta parte do e-mail: "aluno@exemplo.com" -> "a****@exemplo.com". */
+export function maskEmail(email: string) {
+  const [user, domain] = email.split("@");
+  if (!user || !domain) return email;
+  return `${user[0]}${"*".repeat(Math.max(user.length - 1, 3))}@${domain}`;
+}

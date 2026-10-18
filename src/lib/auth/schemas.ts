@@ -61,3 +61,9 @@ export const registerSchema = z
   });
 
 export type RegisterValues = z.infer<typeof registerSchema>;
+
+export const mfaSchema = z.object({
+  code: z.string().length(6, "Informe os 6 dígitos do código."),
+});
+
+export type MfaValues = z.infer<typeof mfaSchema>;
