@@ -50,3 +50,16 @@ export async function resetPassword(): Promise<AuthResult> {
   await delay();
   return { ok: true };
 }
+
+/** O token "expired" simula um link vencido; qualquer outro ativa a conta. */
+export async function verifyActivation(token: string): Promise<AuthResult> {
+  await delay(1200);
+  if (token === "expired") {
+    return { ok: false, message: "Link de ativação expirado." };
+  }
+  return { ok: true };
+}
+
+export async function resendActivation(): Promise<void> {
+  await delay(600);
+}

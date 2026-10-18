@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 
 type ResendCodeProps = {
+  /** Pergunta exibida antes do link. */
+  question?: string;
+  /** Texto do link quando o reenvio está liberado. */
+  action?: string;
   onResend: () => Promise<void>;
   /** Tempo de espera entre reenvios, em segundos. */
   seconds?: number;
@@ -15,7 +19,12 @@ function formatTime(total: number) {
 }
 
 /** Linha "Não recebeu o código? Reenviar" com contagem regressiva para o reenvio. */
-export function ResendCode({ onResend, seconds = 60 }: ResendCodeProps) {
+export function ResendCode({
+  onResend,
+  seconds = 60,
+  question = "Não recebeu o código?",
+  action = "Reenviar código",
+}: ResendCodeProps) {
   const [remaining, setRemaining] = useState(seconds);
   const [sending, setSending] = useState(false);
 
@@ -34,7 +43,7 @@ export function ResendCode({ onResend, seconds = 60 }: ResendCodeProps) {
 
   return (
     <p className="mt-4 text-center text-sm text-muted-foreground">
-      Não recebeu o código?{" "}
+      {question}{" "}
       <button
         type="button"
         disabled={remaining > 0 || sending}
@@ -45,7 +54,7 @@ export function ResendCode({ onResend, seconds = 60 }: ResendCodeProps) {
           ? "Enviando…"
           : remaining > 0
             ? `Reenviar em ${formatTime(remaining)}`
-            : "Reenviar código"}
+            : action}
       </button>
     </p>
   );
