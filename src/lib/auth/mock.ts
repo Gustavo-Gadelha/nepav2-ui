@@ -1,4 +1,4 @@
-import type { LoginValues } from "@/lib/auth/schemas";
+import type { LoginValues, RegisterValues } from "@/lib/auth/schemas";
 
 // Ações simuladas até existir uma API real. Mantêm um contrato assíncrono
 // para que a troca por `ky`/react-query não altere os componentes.
@@ -12,6 +12,17 @@ export async function login(values: LoginValues): Promise<AuthResult> {
   await delay();
   if (values.password === "errada") {
     return { ok: false, message: "E-mail ou senha incorretos." };
+  }
+  return { ok: true };
+}
+
+/** Qualquer cadastro é aceito, exceto o e-mail "existente@catolicapb.edu.br". */
+export async function registerAccount(
+  values: RegisterValues,
+): Promise<AuthResult> {
+  await delay();
+  if (values.email.toLowerCase() === "existente@catolicapb.edu.br") {
+    return { ok: false, message: "Este e-mail já está cadastrado." };
   }
   return { ok: true };
 }
