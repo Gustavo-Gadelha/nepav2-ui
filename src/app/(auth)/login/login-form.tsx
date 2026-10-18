@@ -67,7 +67,7 @@ export function LoginForm() {
         error={errors.password?.message}
         labelAside={
           <Link
-            href="/recuperar-senha"
+            href="/forgot-password"
             className="text-sm font-semibold text-primary-hover underline-offset-4 hover:underline"
           >
             Esqueci a senha

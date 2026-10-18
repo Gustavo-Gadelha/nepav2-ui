@@ -19,7 +19,7 @@ export default function LoginPage() {
       <p className="mt-8 text-center text-sm text-muted-foreground">
         Ainda não tem conta?{" "}
         <Link
-          href="/cadastro"
+          href="/register"
           className="font-semibold text-primary-hover underline-offset-4 hover:underline"
         >
           Cadastre-se

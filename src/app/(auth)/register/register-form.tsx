@@ -56,7 +56,7 @@ export function RegisterForm() {
       setFormError(result.message);
       return;
     }
-    router.push(`/ativar-conta?email=${encodeURIComponent(values.email)}`);
+    router.push(`/activate-account?email=${encodeURIComponent(values.email)}`);
   }
 
   return (

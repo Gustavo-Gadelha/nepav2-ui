@@ -67,3 +67,21 @@ export const mfaSchema = z.object({
 });
 
 export type MfaValues = z.infer<typeof mfaSchema>;
+
+export const requestResetSchema = z.object({
+  email: z.email("Informe um e-mail válido."),
+});
+
+export type RequestResetValues = z.infer<typeof requestResetSchema>;
+
+export const resetPasswordSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: z.string().min(1, "Confirme sua senha."),
+  })
+  .refine((values) => values.password === values.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "As senhas não coincidem.",
+  });
+
+export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;

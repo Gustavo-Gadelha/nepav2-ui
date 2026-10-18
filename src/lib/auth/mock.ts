@@ -39,3 +39,14 @@ export async function verifyCode(code: string): Promise<AuthResult> {
 export async function resendCode(): Promise<void> {
   await delay(600);
 }
+
+/** Sempre responde com sucesso, sem revelar se o e-mail existe. */
+export async function requestPasswordReset(): Promise<AuthResult> {
+  await delay();
+  return { ok: true };
+}
+
+export async function resetPassword(): Promise<AuthResult> {
+  await delay();
+  return { ok: true };
+}
