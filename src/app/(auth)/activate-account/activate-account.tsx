@@ -87,8 +87,8 @@ function VerifyToken({
   if (status === "verifying") {
     return (
       <>
-        <StatusIcon variant="loading" />
         <AuthHeading
+          icon={<StatusIcon variant="loading" />}
           title="Verificando seu e-mail"
           description="Aguarde enquanto confirmamos o seu link de ativação."
         />
@@ -99,8 +99,8 @@ function VerifyToken({
   if (status === "success") {
     return (
       <>
-        <StatusIcon variant="success" />
         <AuthHeading
+          icon={<StatusIcon variant="success" />}
           title="E-mail verificado com sucesso!"
           description="Sua conta acadêmica foi ativada. Agora você tem acesso aos módulos de extensão, projetos de pesquisa e serviços acadêmicos do NEPA."
         />
@@ -134,8 +134,8 @@ function VerifyToken({
 
   return (
     <>
-      <StatusIcon variant="error" />
       <AuthHeading
+        icon={<StatusIcon variant="error" />}
         title="Link expirado"
         description="Este link de ativação expirou ou já foi utilizado. Solicite um novo e-mail para ativar sua conta."
       />

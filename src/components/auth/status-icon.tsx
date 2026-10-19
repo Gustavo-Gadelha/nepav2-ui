@@ -16,11 +16,11 @@ export function StatusIcon({ variant }: { variant: keyof typeof variants }) {
     <span
       aria-hidden
       className={cn(
-        "mb-6 flex size-14 items-center justify-center rounded-full",
+        "flex size-11 shrink-0 items-center justify-center rounded-full",
         className,
       )}
     >
-      <Icon className={cn("size-6", variant === "loading" && "animate-spin")} />
+      <Icon className={cn("size-5", variant === "loading" && "animate-spin")} />
     </span>
   );
 }
