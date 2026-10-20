@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   cacheComponents: true,
-  async redirects() {
-    return [{ source: "/", destination: "/login", permanent: false }];
-  },
   partialPrefetching: true,
   turbopack: {
     rules: {
