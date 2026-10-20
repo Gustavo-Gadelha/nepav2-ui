@@ -6,6 +6,42 @@ Interface do NEPA, núcleo de extensão e pesquisa da Faculdade Católica da Par
 
 ## Como rodar
 
+Há duas formas: com Docker Compose (build de produção, sem instalar nada além do Docker) ou localmente com pnpm (desenvolvimento).
+
+### Com Docker Compose
+
+Pré-requisito: [Docker](https://docs.docker.com/get-docker/) com o plugin Compose (`docker compose`).
+
+```bash
+docker compose up --build       # constrói a imagem e sobe o contêiner em primeiro plano
+docker compose up -d --build    # o mesmo, em segundo plano
+```
+
+Depois de subir, acesse [http://localhost:3000](http://localhost:3000) (`/` redireciona para `/login`).
+
+Comandos úteis:
+
+| Comando                  | Descrição                                     |
+| ------------------------ | --------------------------------------------- |
+| `docker compose logs -f` | Acompanha os logs do serviço `web`            |
+| `docker compose ps`      | Lista o estado dos serviços                   |
+| `docker compose restart` | Reinicia o contêiner sem reconstruir a imagem |
+| `docker compose down`    | Para e remove o contêiner e a rede            |
+| `docker compose build`   | Reconstrói a imagem sem subir o contêiner     |
+
+O que está configurado:
+
+- **Imagem:** o [Dockerfile](Dockerfile) tem três estágios (dependências, build e execução). A imagem final contém apenas o output `standalone` do Next.js e roda como usuário não-root.
+- **Cache:** o `pnpm install` só é refeito quando `package.json`, `pnpm-lock.yaml` ou `pnpm-workspace.yaml` mudam. O store do pnpm e o `.next/cache` ficam em cache mounts do BuildKit, então rebuilds seguintes são bem mais rápidos.
+- **Variáveis de ambiente:** não ficam na imagem; são definidas em `environment` no [compose.yaml](compose.yaml) (`NODE_ENV`, `NEXT_TELEMETRY_DISABLED`, `PORT` e `HOSTNAME`).
+- **Porta:** o contêiner escuta na `3000`. Para expor em outra porta do host, altere o primeiro número de `ports` no `compose.yaml` (por exemplo, `"8080:3000"`).
+
+Após alterar o código, rode `docker compose up -d --build` de novo para gerar uma imagem nova. Para desenvolver com recarga automática, use o modo local abaixo.
+
+> Se a porta `3000` já estiver em uso (por exemplo, por um `pnpm dev`), pare o outro processo ou troque a porta do host no `compose.yaml`.
+
+### Localmente com pnpm
+
 Pré-requisito: [pnpm](https://pnpm.io) (o projeto usa `pnpm` como gerenciador de pacotes).
 
 ```bash
@@ -15,12 +51,14 @@ pnpm dev       # servidor de desenvolvimento em http://localhost:3000
 
 Outros comandos:
 
-| Comando      | Descrição                   |
-| ------------ | --------------------------- |
-| `pnpm dev`   | Servidor de desenvolvimento |
-| `pnpm build` | Build de produção           |
-| `pnpm start` | Serve o build de produção   |
-| `pnpm lint`  | Executa o ESLint            |
+| Comando             | Descrição                                     |
+| ------------------- | --------------------------------------------- |
+| `pnpm dev`          | Servidor de desenvolvimento                   |
+| `pnpm build`        | Build de produção                             |
+| `pnpm start`        | Serve o build de produção                     |
+| `pnpm lint`         | Executa o ESLint                              |
+| `pnpm format`       | Formata o código com o Prettier               |
+| `pnpm format:check` | Verifica a formatação sem alterar os arquivos |
 
 Se o servidor de desenvolvimento exibir código antigo após edições (erro de hidratação ou `x is not a function` em um export recém-criado), reinicie o `pnpm dev`.
 
