@@ -8,3 +8,4 @@ Dockerfile
 *.md
 tsconfig.tsbuildinfo
 .env*
+images/
