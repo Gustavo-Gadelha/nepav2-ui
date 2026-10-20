@@ -25,7 +25,7 @@ If the dev server renders stale server-side code after edits (hydration mismatch
 
 Frontend-only UI ("nepav2-ui") for NEPA, the extension and research center of Faculdade Católica da Paraíba. Source lives in `src/` and the `@/*` alias maps to `./src/*`. There is no backend yet: every auth action is mocked.
 
-- `src/app/layout.tsx` — root layout: Plus Jakarta Sans (`--font-plus-jakarta`), `lang="pt-BR"`. `/` redirects to `/login`.
+- `src/app/layout.tsx` — root layout: Plus Jakarta Sans (`--font-plus-jakarta`), `lang="pt-BR"`. `/` redirects to `/login` via `redirects()` in `next.config.ts` (a `redirect()` in `app/page.tsx` made the dev prerender validation fail with `NEXT_REDIRECT`).
 - `src/app/(auth)/` — route group with the shared split layout (`AuthShell`). Routes are in English: `/login`, `/register`, `/mfa`, `/forgot-password` → `/verify-code` → `/new-password`, `/activate-account`. `/portal` (post-login destination) does not exist yet.
 - `src/components/auth/` — building blocks shared by all auth screens: `AuthShell`/`AuthAside` (layout), `CardHeader` (NEPA brand + optional `StepBadge`), `AuthHeading`, `TextField`, `PasswordField`, `SelectField`, `OtpField`, `CodeForm` (6-digit code form used by MFA and password recovery), `ResendCode`, `PasswordStrength`, `SubmitButton` (+ `submitButtonClass` for link-buttons), `BackLink`, `StatusIcon`.
 - `src/components/ui/` — shadcn/ui components, style `base-nova`, built on **`@base-ui/react`** (not Radix). Add/update them with the `shadcn` CLI; config in [components.json](components.json). `input`, `input-group`, `select` and `input-otp` were edited to the DESIGN.md field spec (48px height, 1.5px border, `ring-4` focus halo), so re-adding them with the CLI overwrites those tweaks.
