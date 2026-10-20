@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "christian-kohler.path-intellisense",
+    "christian-kohler.npm-intellisense",
+    "davidanson.vscode-markdownlint",
+    "ldez.ignore-files",
+    "dbaeumer.vscode-eslint",
+    "usernamehw.errorlens",
+    "esbenp.prettier-vscode",
+    "yoavbls.pretty-ts-errors",
+    "eamodio.gitlens",
+    "formulahendry.auto-rename-tag",
+    "steoates.autoimport",
+    "ms-azuretools.vscode-docker"
+  ]
+}
