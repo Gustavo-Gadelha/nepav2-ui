@@ -15,12 +15,12 @@ pnpm dev       # servidor de desenvolvimento em http://localhost:3000
 
 Outros comandos:
 
-| Comando      | Descrição                          |
-| ------------ | ---------------------------------- |
-| `pnpm dev`   | Servidor de desenvolvimento        |
-| `pnpm build` | Build de produção                  |
-| `pnpm start` | Serve o build de produção          |
-| `pnpm lint`  | Executa o ESLint                   |
+| Comando      | Descrição                   |
+| ------------ | --------------------------- |
+| `pnpm dev`   | Servidor de desenvolvimento |
+| `pnpm build` | Build de produção           |
+| `pnpm start` | Serve o build de produção   |
+| `pnpm lint`  | Executa o ESLint            |
 
 Se o servidor de desenvolvimento exibir código antigo após edições (erro de hidratação ou `x is not a function` em um export recém-criado), reinicie o `pnpm dev`.
 

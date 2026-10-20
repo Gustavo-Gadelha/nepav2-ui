@@ -9,6 +9,7 @@ Package manager is **pnpm** (`packageManager: pnpm@12.4.1`).
 - `pnpm dev` — dev server (http://localhost:3000)
 - `pnpm build` / `pnpm start` — production build / serve
 - `pnpm lint` — ESLint (flat config, `eslint-config-next` core-web-vitals + typescript)
+- `pnpm format` / `pnpm format:check` — Prettier (`.prettierrc`, defaults + `prettier-plugin-tailwindcss` sorting classes inside `cn()`/`cva()`); `src/components/ui` (shadcn) and `DESIGN.md` are in `.prettierignore`
 - No test runner is configured yet.
 
 If the dev server renders stale server-side code after edits (hydration mismatch showing old text, or `x is not a function` for a newly added export), restart `pnpm dev`; it is a Turbopack SSR cache issue, not a code bug.
