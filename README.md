@@ -4,6 +4,15 @@ Interface do NEPA, núcleo de extensão e pesquisa da Faculdade Católica da Par
 
 > Por enquanto é apenas frontend: não há backend e todas as ações de autenticação são simuladas (mock).
 
+## Tecnologias
+
+- [Next.js](https://nextjs.org) 16 (App Router, Cache Components) e React 19
+- TypeScript
+- Tailwind CSS v4 e shadcn/ui (sobre `@base-ui/react`)
+- react-hook-form e zod para formulários e validação
+- ESLint e Prettier
+- Docker e Docker Compose para execução em contêiner
+
 ## Como rodar
 
 Há duas formas: com Docker Compose (build de produção, sem instalar nada além do Docker) ou localmente com pnpm (desenvolvimento).
@@ -91,17 +100,62 @@ Como não há API, as respostas são simuladas em `src/lib/auth/mock.ts`:
 - **Código** `123456`: é o único código válido (MFA e recuperação de senha).
 - **Token** `expired` em `/activate-account`: simula um link de ativação expirado.
 
+## Telas
+
+Capturas da interface funcionando, salvas em [images/](images/). As telas seguem o layout dividido em duas colunas.
+
+### Login
+
+![Login](images/login-desktop.png)
+
+### Cadastro
+
+![Cadastro](images/register-desktop.png)
+
+### Verificação em duas etapas
+
+![Verificação em duas etapas](images/mfa-desktop.png)
+
+### Recuperação de senha
+
+| 1. Informar o e-mail                            | 2. Validar o código                           |
+| ----------------------------------------------- | --------------------------------------------- |
+| ![Recuperar acesso](images/forgot-password.png) | ![Verificar o e-mail](images/verify-code.png) |
+
+| 3. Nova senha (vazio)                              | 3. Nova senha (preenchido)                        |
+| -------------------------------------------------- | ------------------------------------------------- |
+| ![Nova senha vazia](images/new-password-empty.png) | ![Nova senha preenchida](images/new-password.png) |
+
+### Ativação de conta
+
+| Aguardando ativação                               | Validando o link                                    |
+| ------------------------------------------------- | --------------------------------------------------- |
+| ![Ativação pendente](images/activate-pending.png) | ![Validando o token](images/activate-verifying.png) |
+
+| Conta ativada                                 | Link expirado                                 |
+| --------------------------------------------- | --------------------------------------------- |
+| ![Conta ativada](images/activate-success.png) | ![Link expirado](images/activate-expired.png) |
+
+Para adicionar novas capturas, salve o arquivo em `images/` (de preferência `.png`, em minúsculas e com hífens) e referencie-o aqui com `![Descrição](images/arquivo.png)`.
+
 ## Estrutura
 
 ```text
-src/
-├── app/            # rotas (App Router) e estilos globais
-├── components/
-│   ├── auth/       # blocos compartilhados das telas de autenticação
-│   └── ui/         # componentes shadcn/ui (base-nova, sobre @base-ui/react)
-└── lib/
-    ├── auth/       # schemas (zod), mock da API, fluxo de recuperação, formatadores
-    └── utils.ts    # cn()
+.
+├── src/
+│   ├── app/            # rotas (App Router) e estilos globais
+│   ├── components/
+│   │   ├── auth/       # blocos compartilhados das telas de autenticação
+│   │   └── ui/         # componentes shadcn/ui (base-nova, sobre @base-ui/react)
+│   └── lib/
+│       ├── auth/       # schemas (zod), mock da API, fluxo de recuperação, formatadores
+│       └── utils.ts    # cn()
+├── public/             # arquivos estáticos (logos)
+├── images/             # capturas de tela usadas neste README
+├── Dockerfile          # imagem de produção (build em estágios, output standalone)
+├── compose.yaml        # execução com Docker Compose
+├── next.config.ts      # configuração do Next.js
+└── .prettierrc         # configuração do Prettier
 ```
 
 O guia de design está em [DESIGN.md](DESIGN.md) e as convenções de desenvolvimento em [CLAUDE.md](CLAUDE.md).
