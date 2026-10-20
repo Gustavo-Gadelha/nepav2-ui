@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NEPA v2 — UI
 
-## Getting Started
+Interface do NEPA, núcleo de extensão e pesquisa da Faculdade Católica da Paraíba. Projeto em [Next.js](https://nextjs.org) (App Router) com React, Tailwind CSS v4 e shadcn/ui.
 
-First, run the development server:
+> Por enquanto é apenas frontend: não há backend e todas as ações de autenticação são simuladas (mock).
+
+## Como rodar
+
+Pré-requisito: [pnpm](https://pnpm.io) (o projeto usa `pnpm` como gerenciador de pacotes).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install   # instala as dependências
+pnpm dev       # servidor de desenvolvimento em http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Outros comandos:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Comando      | Descrição                          |
+| ------------ | ---------------------------------- |
+| `pnpm dev`   | Servidor de desenvolvimento        |
+| `pnpm build` | Build de produção                  |
+| `pnpm start` | Serve o build de produção          |
+| `pnpm lint`  | Executa o ESLint                   |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Se o servidor de desenvolvimento exibir código antigo após edições (erro de hidratação ou `x is not a function` em um export recém-criado), reinicie o `pnpm dev`.
 
-## Learn More
+## Rotas disponíveis
 
-To learn more about Next.js, take a look at the following resources:
+Todas as rotas ficam no grupo `(auth)` e compartilham o mesmo layout dividido em duas colunas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Rota                              | Descrição                                                                                        |
+| --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `/`                               | Redireciona para `/login`                                                                        |
+| `/login`                          | Entrar com e-mail e senha                                                                        |
+| `/register`                       | Cadastro de nova conta                                                                           |
+| `/mfa`                            | Verificação em duas etapas (código de 6 dígitos)                                                 |
+| `/forgot-password`                | Recuperação de senha: informar o e-mail                                                          |
+| `/forgot-password/verify-code`    | Recuperação de senha: validar o código recebido                                                  |
+| `/forgot-password/new-password`   | Recuperação de senha: definir a nova senha                                                       |
+| `/activate-account`               | Aguardando ativação: pede para verificar o e-mail e permite reenviar (aceita `?email=` opcional) |
+| `/activate-account?token=<token>` | Link recebido por e-mail: valida o token e ativa a conta                                         |
+| `/activate-account?token=expired` | Mock: simula um link de ativação expirado                                                        |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+As etapas da recuperação de senha não podem ser puladas pela URL: o estado do fluxo é guardado no `sessionStorage`.
 
-## Deploy on Vercel
+A rota `/portal` (destino após o login) ainda não existe.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Valores de teste (mock)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Como não há API, as respostas são simuladas em `src/lib/auth/mock.ts`:
+
+- **Senha** `errada`: o login falha.
+- **Código** `123456`: é o único código válido (MFA e recuperação de senha).
+- **Token** `expired` em `/activate-account`: simula um link de ativação expirado.
+
+## Estrutura
+
+```text
+src/
+├── app/            # rotas (App Router) e estilos globais
+├── components/
+│   ├── auth/       # blocos compartilhados das telas de autenticação
+│   └── ui/         # componentes shadcn/ui (base-nova, sobre @base-ui/react)
+└── lib/
+    ├── auth/       # schemas (zod), mock da API, fluxo de recuperação, formatadores
+    └── utils.ts    # cn()
+```
+
+O guia de design está em [DESIGN.md](DESIGN.md) e as convenções de desenvolvimento em [CLAUDE.md](CLAUDE.md).
