@@ -19,8 +19,6 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
 # ---- build ----
 FROM base AS builder
 
-ENV NEXT_TELEMETRY_DISABLED=1
-
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 
@@ -30,11 +28,6 @@ RUN --mount=type=cache,id=next-cache,target=/app/.next/cache \
 
 # ---- runner: apenas o output standalone, sem pnpm nem devDependencies ----
 FROM node:24-alpine AS runner
-
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-ENV HOSTNAME=0.0.0.0
 
 WORKDIR /app
 
