@@ -118,23 +118,37 @@ Capturas da interface funcionando, salvas em [images/](images/). As telas seguem
 
 ### Recuperação de senha
 
-| 1. Informar o e-mail                            | 2. Validar o código                           |
-| ----------------------------------------------- | --------------------------------------------- |
-| ![Recuperar acesso](images/forgot-password.png) | ![Verificar o e-mail](images/verify-code.png) |
+Passo 1: informar o e-mail.
 
-| 3. Nova senha (vazio)                              | 3. Nova senha (preenchido)                        |
-| -------------------------------------------------- | ------------------------------------------------- |
-| ![Nova senha vazia](images/new-password-empty.png) | ![Nova senha preenchida](images/new-password.png) |
+![Recuperar acesso](images/forgot-password.png)
+
+Passo 2: validar o código recebido.
+
+![Verificar o e-mail](images/verify-code.png)
+
+Passo 3: definir a nova senha, vazio e preenchido.
+
+![Nova senha vazia](images/new-password-empty.png)
+
+![Nova senha preenchida](images/new-password.png)
 
 ### Ativação de conta
 
-| Aguardando ativação                               | Validando o link                                    |
-| ------------------------------------------------- | --------------------------------------------------- |
-| ![Ativação pendente](images/activate-pending.png) | ![Validando o token](images/activate-verifying.png) |
+Aguardando ativação.
 
-| Conta ativada                                 | Link expirado                                 |
-| --------------------------------------------- | --------------------------------------------- |
-| ![Conta ativada](images/activate-success.png) | ![Link expirado](images/activate-expired.png) |
+![Ativação pendente](images/activate-pending.png)
+
+Validando o link.
+
+![Validando o token](images/activate-verifying.png)
+
+Conta ativada.
+
+![Conta ativada](images/activate-success.png)
+
+Link expirado.
+
+![Link expirado](images/activate-expired.png)
 
 Para adicionar novas capturas, salve o arquivo em `images/` (de preferência `.png`, em minúsculas e com hífens) e referencie-o aqui com `![Descrição](images/arquivo.png)`.
 
